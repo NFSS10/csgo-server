@@ -73,8 +73,8 @@ fn install_csgo_server(server_dir_path: &mut PathBuf) {
     ];
 
     if cfg!(windows) {
-        // TODO ruh SteamCMD/steamcmd.exe instead
-        Command::new("steamcmd")
+        let steacmd_exe_path = get_windows_steamcmd_exe_path();
+        Command::new(steacmd_exe_path)    
             .args(args)
             .status()
             .expect("SteamCMD commands failed to run");
