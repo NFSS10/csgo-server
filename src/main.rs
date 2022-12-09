@@ -79,7 +79,11 @@ fn start_csgo_server(server_dir_path: &mut PathBuf) {
     let args =
         "-game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2";
     if cfg!(windows) {
-        // TODO run windows specific
+        Command::new("cmd")
+            .current_dir(server_dir_path)
+            .arg("/c srcds -game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2")
+            .status()
+            .expect("Server command failed to run");
     } else if cfg!(unix) {
         Command::new("./srcds_run")
             .current_dir(server_dir_path)
