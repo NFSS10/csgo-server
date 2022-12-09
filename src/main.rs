@@ -36,10 +36,20 @@ fn get_app_dir_path() -> PathBuf {
     return app_dir_path;
 }
 
+fn get_windows_steamcmd_exe_path() -> PathBuf{
+    let mut steacmd_exe_path = get_app_dir_path();
+    steacmd_exe_path.push("SteamCMD/steamcmd.exe");
+    
+    return steacmd_exe_path;
+}
+
 fn verify_os() {
     if cfg!(windows) {
-        let app_dir_path = get_app_dir_path();
-        // TODO check if SteamCMD/steamcmd.exe exists inside root folder
+        let steacmd_exe_path = get_windows_steamcmd_exe_path();
+
+        if !steacmd_exe_path.exists() {
+            panic!("Setup needed, SteamCMD/steamcmd.exe not found")
+        }
     } else if cfg!(unix) {
         Command::new("steamcmd")
             .arg("+quit")
