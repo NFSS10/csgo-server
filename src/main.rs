@@ -20,4 +20,13 @@ fn main() {
         .arg("+quit")
         .status()
         .expect("SteamCMD commands failed to run");
+
+    // casual args
+    let args =
+        "-game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2";
+    Command::new("./srcds_run")
+        .current_dir(server_dir_path)
+        .arg(args)
+        .status()
+        .expect("Server command failed to run");
 }
