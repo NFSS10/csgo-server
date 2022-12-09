@@ -20,7 +20,20 @@ fn main() {
 fn get_app_dir_path() -> PathBuf {
     let mut executable_path = env::current_exe().expect("Failed to get the executable path");
     executable_path.pop();
-    return executable_path;
+
+    // check windows UNC path
+    let app_dir_path_str = executable_path.to_str().expect("Failed to transform into string");
+    let app_dir_path = match app_dir_path_str.starts_with("\\\\?\\") {
+        true => {
+            let cropped_str = &app_dir_path_str[4..];
+            let mut parsed_path = PathBuf::new();
+            parsed_path.push(cropped_str);
+            parsed_path
+        },
+        false => executable_path
+    };
+
+    return app_dir_path;
 }
 
 fn verify_os() {
