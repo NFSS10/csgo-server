@@ -12,18 +12,9 @@ fn main() {
     server_dir_path.push("server/");
 
     // ensures csgo server is installed
-    let server_dir_path_str = server_dir_path
-        .to_str()
-        .expect("Can't convert server folder path to string");
-    Command::new("steamcmd")
-        .arg(format!("+force_install_dir {}", server_dir_path_str))
-        .arg("+login anonymous")
-        .arg("+app_update 740 validate")
-        .arg("+quit")
-        .status()
-        .expect("SteamCMD commands failed to run");
+    install_csgo_server(&mut server_dir_path);
 
-    start_csgo_server(server_dir_path);
+    start_csgo_server(&mut server_dir_path);
 }
 
 fn get_app_dir_path() -> PathBuf {
@@ -44,7 +35,33 @@ fn verify_os() {
     }
 }
 
-fn start_csgo_server(server_dir_path: PathBuf) {
+fn install_csgo_server(server_dir_path: &mut PathBuf) {
+    let server_dir_path_str = server_dir_path
+        .to_str()
+        .expect("Can't convert server folder path to string");
+    let install_dir = format!("+force_install_dir {}", server_dir_path_str);
+    let args = [
+        install_dir.as_str(),
+        "+login anonymous",
+        "+app_update 740 validate",
+        "+quit",
+    ];
+
+    if cfg!(windows) {
+        // TODO ruh SteamCMD/steamcmd.exe instead
+        Command::new("steamcmd")
+            .args(args)
+            .status()
+            .expect("SteamCMD commands failed to run");
+    } else if cfg!(unix) {
+        Command::new("steamcmd")
+            .args(args)
+            .status()
+            .expect("SteamCMD commands failed to run");
+    }
+}
+
+fn start_csgo_server(server_dir_path: &mut PathBuf) {
     // casual args
     let args =
         "-game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2";
