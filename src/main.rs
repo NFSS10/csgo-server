@@ -19,5 +19,5 @@ fn main() {
         .arg("+app_update 740 validate")
         .arg("+quit")
         .status()
-        .expect("ls command failed to start");
+        .expect("SteamCMD commands failed to run");
 }
