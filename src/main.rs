@@ -1,7 +1,7 @@
 #![allow(clippy::needless_return)]
 
 use std::env;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::Command;
 
 fn main() {
@@ -12,9 +12,9 @@ fn main() {
     server_dir_path.push("server/");
 
     // ensures csgo server is installed
-    install_csgo_server(&mut server_dir_path);
+    install_csgo_server(&server_dir_path);
 
-    start_csgo_server(&mut server_dir_path);
+    start_csgo_server(&server_dir_path);
 }
 
 fn get_app_dir_path() -> PathBuf {
@@ -60,7 +60,7 @@ fn verify_os() {
     }
 }
 
-fn install_csgo_server(server_dir_path: &mut PathBuf) {
+fn install_csgo_server(server_dir_path: &Path) {
     let server_dir_path_str = server_dir_path
         .to_str()
         .expect("Can't convert server folder path to string");
@@ -74,7 +74,7 @@ fn install_csgo_server(server_dir_path: &mut PathBuf) {
 
     if cfg!(windows) {
         let steacmd_exe_path = get_windows_steamcmd_exe_path();
-        Command::new(steacmd_exe_path)    
+        Command::new(steacmd_exe_path)
             .args(args)
             .status()
             .expect("SteamCMD commands failed to run");
@@ -86,7 +86,7 @@ fn install_csgo_server(server_dir_path: &mut PathBuf) {
     }
 }
 
-fn start_csgo_server(server_dir_path: &mut PathBuf) {
+fn start_csgo_server(server_dir_path: &Path) {
     // casual args
     let args =
         "-game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2";
