@@ -2,6 +2,13 @@
 name = "csgo-server"
 version = "0.1.0"
 edition = "2021"
+keywords = ["csgo", "dedicated", "server"]
+authors = ["NFSS10"]
+description = "A simple application to setup and run a Counter-Strike: Global Offensive dedicated server"
+license = "Apache-2.0"
+homepage = "https://github.com/NFSS10/csgo-server"
+repository = "https://github.com/NFSS10/csgo-server"
+readme = "README.md"
 
 [dependencies]
 menu_rs = "0.2.2"
