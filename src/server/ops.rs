@@ -39,29 +39,27 @@ pub fn run_server_menu() {
 }
 
 fn start_classic_competitive_server() {
-    let args =
-        "-game csgo -console -usercon +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2";
+    let args = "-game csgo +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2";
     start_server(args);
 }
 
 fn start_classic_casual_server() {
-    let args =
-        "-game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2";
+    let args = "-game csgo +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2";
     start_server(args);
 }
 
 fn start_arms_race_server() {
-    let args = "-game csgo -console -usercon +game_type 1 +game_mode 0 +mapgroup mg_armsrace +map ar_shoots";
+    let args = "-game csgo +game_type 1 +game_mode 0 +mapgroup mg_armsrace +map ar_shoots";
     start_server(args);
 }
 
 fn start_demolition_server() {
-    let args = "-game csgo -console -usercon +game_type 1 +game_mode 1 +mapgroup mg_demolition +map de_lake";
+    let args = "-game csgo +game_type 1 +game_mode 1 +mapgroup mg_demolition +map de_lake";
     start_server(args);
 }
 
 fn start_deathmatch_server() {
-    let args = "-game csgo -console -usercon +game_type 1 +game_mode 2 +mapgroup mg_allclassic +map de_dust";
+    let args = "-game csgo +game_type 1 +game_mode 2 +mapgroup mg_allclassic +map de_dust";
     start_server(args);
 }
 
