@@ -4,6 +4,7 @@ use std::process::Command;
 
 use menu_rs::{Menu, MenuOption};
 
+use crate::utils::config::{load_commands, load_exec};
 use crate::utils::paths::{get_app_dir_path, get_steamcmd_exe_path};
 
 pub fn install_server(dir_path: &Path) -> Result<(), Box<dyn Error>> {
@@ -76,8 +77,19 @@ fn _start_server(game_mode_args: &str) -> Result<(), Box<dyn Error>> {
     let mut server_dir_path = get_app_dir_path().expect("Failed to get the application path");
     server_dir_path.push("server/");
 
+    let commands = load_commands()?;
+    let conf_values = load_exec()?;
+
+    let mut args = game_mode_args.to_owned();
+    let commands_str = commands.join(" ").to_owned();
+    let conf_values_str = conf_values.join(" ").to_owned();
+    args.push_str(&commands_str);
+    args.push_str(&conf_values_str);
+
+    println!("args: {}", args);
+
     if cfg!(windows) {
-        let windows_args = format!("/c srcds {}", game_mode_args);
+        let windows_args = format!("/c srcds {}", args);
         Command::new("cmd")
             .current_dir(server_dir_path)
             .arg(windows_args)
@@ -85,7 +97,7 @@ fn _start_server(game_mode_args: &str) -> Result<(), Box<dyn Error>> {
     } else if cfg!(unix) {
         Command::new("./srcds_run")
             .current_dir(server_dir_path)
-            .arg(game_mode_args)
+            .arg(args)
             .status()?;
     } else {
         Err("OS not supported")?;
