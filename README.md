@@ -1,6 +1,6 @@
 # CSGO Server
 
-A simple application to setup and run a Counter-Strike: Global Offensive server.
+A simple application to setup and run a Counter-Strike: Global Offensive dedicated server.
 
 ## Setup
 
