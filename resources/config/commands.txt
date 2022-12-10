@@ -1,0 +1,5 @@
+usercon
+console
+condebug
+tickrate 128
+port 27015

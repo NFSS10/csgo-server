@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+menu_rs = "0.2.2"
 
 
 [profile.dev]
