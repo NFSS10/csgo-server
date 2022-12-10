@@ -82,8 +82,8 @@ fn _start_server(game_mode_args: &str) -> Result<(), Box<dyn Error>> {
 
     let mut args = game_mode_args.to_owned();
     let commands_str = commands.join(" ");
-    let cfg_files_str = cfg_files.join(" +exec ").to_owned();
-    args.push_str(" ");
+    let cfg_files_str = cfg_files.join(" +exec ");
+    args.push(' ');
     args.push_str(&commands_str);
     args.push_str(" +exec ");
     args.push_str(&cfg_files_str);
