@@ -4,6 +4,7 @@ mod server;
 mod utils;
 
 use std::error::Error;
+use std::io::stdin;
 use std::process::Command;
 
 use menu_rs::{Menu, MenuOption};
@@ -19,6 +20,12 @@ fn main() {
     match run() {
         Ok(_) => {}
         Err(e) => println!("Error: {}", e),
+    }
+
+    // avoids immediately closing the console in Windows
+    if cfg!(windows) {
+        println!("\nPress any key to close");
+        stdin().read_line(&mut String::new()).unwrap();
     }
 }
 
