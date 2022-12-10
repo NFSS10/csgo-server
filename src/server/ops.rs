@@ -86,7 +86,8 @@ fn _start_server(game_mode_args: &str) -> Result<(), Box<dyn Error>> {
     args.push_str(" +exec ");
     args.push_str(&cfg_files_str);
 
-    println!("args: {}", args);
+    println!("Starting server...");
+    println!("Args: {}", args);
 
     if cfg!(windows) {
         let windows_args = format!("/c srcds {}", args);
