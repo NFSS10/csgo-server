@@ -1,7 +1,10 @@
+#![allow(dead_code)]
+
 use std::error::Error;
+use std::fs;
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use crate::utils::paths::get_app_dir_path;
 
@@ -45,6 +48,13 @@ pub fn load_commands() -> Result<Vec<String>, Box<dyn Error>> {
 }
 
 pub fn load_exec() -> Result<Vec<String>, Box<dyn Error>> {
+    let mut server_cfgs_path = get_app_dir_path()?;
+    server_cfgs_path.push("server/csgo/cfg/");
+    if !server_cfgs_path.exists() {
+        println!("Can't find server/csgo/cfg/ folder, make sure the server is installed");
+        Err("Error loading exec")?
+    }
+
     let mut file_path = get_app_dir_path()?;
     file_path.push("config/exec.txt");
 
@@ -59,8 +69,16 @@ pub fn load_exec() -> Result<Vec<String>, Box<dyn Error>> {
     let mut entries = Vec::new();
     for line in exec_reader.lines() {
         let line = line?;
-        let mut values = load_cfg(&line)?;
-        entries.append(&mut values);
+        let mut cfg_path = get_app_dir_path()?;
+        cfg_path.push("cfgs/");
+        cfg_path.push(&line);
+
+        let custom_cfg_name = format!("__exec_{}", line);
+        entries.push(custom_cfg_name.to_owned());
+
+        let mut custom_cfg_path = PathBuf::from(&server_cfgs_path);
+        custom_cfg_path.push(custom_cfg_name);
+        fs::copy(cfg_path, custom_cfg_path)?;
     }
 
     Ok(entries)
