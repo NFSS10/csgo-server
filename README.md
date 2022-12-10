@@ -18,7 +18,10 @@ Follow the SteamCMD setup here: https://developer.valvesoftware.com/wiki/SteamCM
 
 Just run the executable and it will show a menu with two options:
 - "Run server" - Select this to run the server.
+![run_example](https://user-images.githubusercontent.com/22588915/206875226-bd8878ec-363d-4ea6-b961-bde18a5e361b.gif)
+
 - "Install server" -  Select this to install the server or to verify the server installation.
+![install_example](https://user-images.githubusercontent.com/22588915/206875232-92384934-effb-41cd-aa93-86bff7d51bed.gif)
 
 #### Server configuration
 
