@@ -27,7 +27,7 @@ Just run the executable and it will show a menu with two options:
 
 You can add custom commands and run custom `.cfg` files.
 - To run custom commands, just add them to `config/commands.txt`.
-- To run custom `.cfg`, add the files to `cfgs/` and then add their names to `config/exec.txt`.
+- To run custom `.cfg`, add the files to `cfgs/` and then add their names to `config/exec.txt` (the order matters).
 
 ## Compatibility
 
