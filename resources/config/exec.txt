@@ -1,2 +1,2 @@
-server.cfg
 competitive_rules.cfg
+server.cfg

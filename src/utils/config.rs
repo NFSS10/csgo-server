@@ -47,7 +47,7 @@ pub fn load_commands() -> Result<Vec<String>, Box<dyn Error>> {
     Ok(entries)
 }
 
-pub fn load_exec() -> Result<Vec<String>, Box<dyn Error>> {
+pub fn load_exec() -> Result<PathBuf, Box<dyn Error>> {
     let mut server_cfgs_path = get_app_dir_path()?;
     server_cfgs_path.push("server/csgo/cfg/");
     if !server_cfgs_path.exists() {
@@ -66,22 +66,26 @@ pub fn load_exec() -> Result<Vec<String>, Box<dyn Error>> {
         }
     };
 
-    let mut entries = Vec::new();
+    // loads cfgs values
+    let mut exec_values = Vec::new();
     for line in exec_reader.lines() {
         let line = line?;
-        let mut cfg_path = get_app_dir_path()?;
-        cfg_path.push("cfgs/");
-        cfg_path.push(&line);
-
-        let custom_cfg_name = format!("__exec_{}", line);
-        entries.push(custom_cfg_name.to_owned());
-
-        let mut custom_cfg_path = PathBuf::from(&server_cfgs_path);
-        custom_cfg_path.push(custom_cfg_name);
-        fs::copy(cfg_path, custom_cfg_path)?;
+        let mut cfg_values = load_cfg(&line)?;
+        exec_values.append(&mut cfg_values);
     }
 
-    Ok(entries)
+    let mut exec_cfg_path = PathBuf::from(&server_cfgs_path);
+    exec_cfg_path.push("__exec_custom.cfg");
+
+    // deletes custom cfg if already exists
+    if exec_cfg_path.exists() {
+        fs::remove_file(&exec_cfg_path)?;
+    }
+
+    // creates custom cfg file
+    fs::write(&exec_cfg_path, exec_values.join("\n"))?;
+
+    Ok(exec_cfg_path)
 }
 
 fn load_cfg(filename: &str) -> Result<Vec<String>, Box<dyn Error>> {
@@ -115,10 +119,7 @@ fn load_cfg(filename: &str) -> Result<Vec<String>, Box<dyn Error>> {
         let words: Vec<_> = line.split(" //").collect();
         line = words[0].to_owned();
 
-        // builds commands
-        let command_str = format!("+{line}");
-
-        entries.push(command_str);
+        entries.push(line);
     }
 
     Ok(entries)
