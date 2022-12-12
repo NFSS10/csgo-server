@@ -76,15 +76,14 @@ fn _start_server(game_mode_args: &str) -> Result<(), Box<dyn Error>> {
     server_dir_path.push("server/");
 
     let commands = load_commands()?;
-    let cfg_files = load_exec()?;
+    load_exec()?;
 
     let mut args = game_mode_args.to_owned();
     let commands_str = commands.join(" ");
-    let cfg_files_str = cfg_files.join(" +exec ");
     args.push(' ');
     args.push_str(&commands_str);
     args.push_str(" +exec ");
-    args.push_str(&cfg_files_str);
+    args.push_str("__exec_custom.cfg");
 
     println!("Starting server...");
     println!("Args: {}", args);
