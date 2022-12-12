@@ -119,10 +119,7 @@ fn load_cfg(filename: &str) -> Result<Vec<String>, Box<dyn Error>> {
         let words: Vec<_> = line.split(" //").collect();
         line = words[0].to_owned();
 
-        // builds commands
-        let command_str = format!("+{line}");
-
-        entries.push(command_str);
+        entries.push(line);
     }
 
     Ok(entries)
