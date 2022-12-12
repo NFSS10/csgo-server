@@ -82,7 +82,7 @@ fn _start_server(game_mode_args: &str) -> Result<(), Box<dyn Error>> {
     let commands_str = commands.join(" ");
     args.push(' ');
     args.push_str(&commands_str);
-    args.push_str(" +exec __exec_custom.cfg");
+    args.push_str(" +exec __exec_custom.cfg /*");
 
     println!("Starting server...");
     println!("Args: {}", args);
