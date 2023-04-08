@@ -1,0 +1,4 @@
+/dist
+src-tauri/*
+!src-tauri/tauri.conf.json
+!src-tauri/Cargo.toml
