@@ -1,3 +1,22 @@
+# general
+**/.vscode/
+**/node_modules/
+**/dist/
+**/dist-ssr/
+
+**/.env
+**/yarn.lock
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+
+# csgo-server app
+/csgo-server/**/src-tauri/target/
+/csgo-server/**/Cargo.lock
+
+
+# csgo-server terminal app
 debug/
 target/
 Cargo.lock
