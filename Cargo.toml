@@ -11,7 +11,7 @@ repository = "https://github.com/NFSS10/csgo-server"
 readme = "README.md"
 
 [dependencies]
-menu_rs = "0.2.2"
+menu_rs = "0.3.0"
 
 
 [profile.dev]
