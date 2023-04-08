@@ -1,6 +1,6 @@
 [package]
 name = "csgo-server"
-version = "0.5.1"
+version = "0.5.2"
 edition = "2021"
 keywords = ["csgo", "dedicated", "server"]
 authors = ["NFSS10"]
