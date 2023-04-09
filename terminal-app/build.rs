@@ -11,7 +11,7 @@ fn main() {
     let target_dir = format!("./target/{}/", build_profile_str);
 
     // moves everything inside "resources" folder to the target folder
-    copy_all("./resources/", target_dir).unwrap();
+    copy_all("../resources/", target_dir).unwrap();
 }
 
 // copies everything inside "src" folder to the "dest" folder

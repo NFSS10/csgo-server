@@ -1,5 +1,5 @@
 [package]
-name = "csgo-server"
+name = "csgo-server-terminal-app"
 version = "0.5.1"
 edition = "2021"
 keywords = ["csgo", "dedicated", "server"]
@@ -11,6 +11,7 @@ repository = "https://github.com/NFSS10/csgo-server"
 readme = "README.md"
 
 [dependencies]
+csgo_server_lib = { path = "../lib" }
 menu_rs = "0.2.2"
 
 

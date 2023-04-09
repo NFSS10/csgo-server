@@ -1,15 +1,13 @@
 #![allow(clippy::needless_return)]
 
 mod server;
-mod utils;
 
 use std::error::Error;
 use std::io::stdin;
-use std::process::Command;
 
+use csgo_server_lib::setup::{install_server, setup_server_structure, verify_os};
 use menu_rs::{Menu, MenuOption};
-use server::ops::{install_server, run_server_menu};
-use utils::paths::{get_app_dir_path, get_steamcmd_exe_path};
+use server::ops::run_server_menu;
 
 fn main() {
     match verify_os() {
@@ -29,19 +27,6 @@ fn main() {
     }
 }
 
-fn verify_os() -> Result<(), Box<dyn Error>> {
-    if cfg!(windows) {
-        let steacmd_exe_path = get_steamcmd_exe_path()?;
-        if !steacmd_exe_path.exists() {
-            Err("steamcmd.exe not found")?;
-        }
-    } else if cfg!(unix) {
-        Command::new("steamcmd").arg("+quit").output()?;
-    }
-
-    Ok(())
-}
-
 fn run() -> Result<(), Box<dyn Error>> {
     let menu = Menu::new(vec![
         MenuOption::new("Run server", run_server_menu).hint("Runs the server"),
@@ -53,9 +38,13 @@ fn run() -> Result<(), Box<dyn Error>> {
 }
 
 fn _install_server() {
-    // builds path to the CSGO server folder
-    let mut server_dir_path = get_app_dir_path().expect("Failed to get the application path");
-    server_dir_path.push("server/");
+    let server_dir_path = match setup_server_structure() {
+        Ok(path) => path,
+        Err(_) => {
+            println!("Failed to setup the server structure");
+            return;
+        }
+    };
 
     match install_server(&server_dir_path) {
         Ok(_) => {}
