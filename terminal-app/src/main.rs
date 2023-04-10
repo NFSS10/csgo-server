@@ -12,7 +12,10 @@ use server::ops::run_server_menu;
 fn main() {
     match verify_os() {
         Ok(_) => {}
-        Err(_) => println!("Setup needed, make sure SteamCMD is correctly setup"),
+        Err(_) => {
+            println!("Setup needed, make sure SteamCMD is correctly setup");
+            return;
+        }
     }
 
     match run() {
