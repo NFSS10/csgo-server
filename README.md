@@ -2,6 +2,8 @@
 
 A simple application to setup and run a Counter-Strike: Global Offensive dedicated server.
 
+### ℹ️: This project is no longer maintained. For new updates (support for CS2) follow this new project: https://github.com/NFSS10/steam-dedicated-server
+
 ## Setup
 
 Make sure you have the correct PORTS open or you can't connect to the server. More information: https://developer.valvesoftware.com/wiki/Source_Dedicated_Server
